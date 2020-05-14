@@ -38,6 +38,7 @@ L.Control.Measure = L.Control.extend({
     activeColor: '#ABE67E', // base color for map features while actively measuring
     completedColor: '#C8F2BE', // base color for permenant features generated from completed measure
     captureZIndex: 10000, // z-index of the marker used to capture measure events
+    capturePane: 'overlayPane',
     popupOptions: {
       // standard leaflet popup options http://leafletjs.com/reference-1.3.0.html#popup-option
       className: 'leaflet-measure-resultpopup',
@@ -55,7 +56,7 @@ L.Control.Measure = L.Control.extend({
     this._latlngs = [];
     this._initLayout();
     map.on('click', this._collapse, this);
-    this._layer = L.layerGroup().addTo(map);
+    this._layer = L.layerGroup({pane: this.options.capturePane}).addTo(map);
     return this._container;
   },
   onRemove: function(map) {
